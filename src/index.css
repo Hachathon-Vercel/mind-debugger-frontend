@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --black-background: #000000;
+  --pink: #E0088E;
+  --purple: #7E25C5;
+  --white: #FFFFFF;
+  --gray-background-button: #1A1A1A;
+  --gray-selection: rgba(255, 255, 255, 0.19);
+  --purple-background-warn: rgba(191, 122, 228, 0.18);
+  --gray-light: #848484;
+  --purple-selection: #BF7AE4;
+  --dark-gray: #181616;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
