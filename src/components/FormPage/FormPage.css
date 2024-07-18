@@ -7,6 +7,7 @@ body {
 .form-page {
     background: #000000;
     flex-grow: 1;
+    z-index: 1;
 }
 
 .overlay1 {
@@ -190,4 +191,14 @@ body {
     height: 15px;
     margin-left: 2px;
     vertical-align: middle;
+}
+
+@media (max-width: 640px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .title .gradient-text {
+        display: block;
+    }
 }

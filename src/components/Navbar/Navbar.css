@@ -1,0 +1,27 @@
+@media (max-width: 640px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .title .gradient-text {
+        display: block;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+}
+
+.navbar-menu {
+    z-index: 20;
+}
+
+.navbar-logo {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-toggle {
+    flex-shrink: 0;
+}
