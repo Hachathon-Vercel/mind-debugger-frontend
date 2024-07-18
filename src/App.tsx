@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
+import Home from './components/Home/Home';
+
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <header className="App-header quote">
-        <p>Hola!</p>
-      </header>
+    <div>
+      <Home />
     </div>
   );
 }

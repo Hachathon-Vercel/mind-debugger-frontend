@@ -16,8 +16,8 @@ const Navbar: React.FC = () => {
                 <span className="text-white text-2x1 font-semibold pt-2" style={{ fontFamily: 'Cal Sans' }}>Mind Debugger</span>
             </div>
             <div className="hidden md:flex space-x-6 justify-start flex-grow pl-8">
-                <a href="/" className="text-gray-light hover:bg-gray-selection rounded-2xl px-2 py-1" style={{ fontFamily: 'Inter', fontSize: '16px' }}>Home</a>
-                <a href="/demo" className="text-gray-light hover:bg-gray-selection rounded-2xl px-2 py-1" style={{ fontFamily: 'Inter', fontSize: '16px' }}>Demo</a>
+                <a href="/" className="text-gray-light hover:bg-gray-selection rounded-2xl px-2 py-1" style={{ fontFamily: 'Inter', fontSize: '14px' }}>Home</a>
+                <a href="/demo" className="text-gray-light hover:bg-gray-selection rounded-2xl px-2 py-1" style={{ fontFamily: 'Inter', fontSize: '14px' }}>Demo</a>
             </div>
             <div className="md:hidden">
                 <button onClick={toggleMenu} className="text-gray-light hover:text-white transition duration-300">
