@@ -1,11 +1,11 @@
 import React from 'react';
-import './ExperienceForm.module.css';
+import './FormPage.module.css';
 
-const ExperienceForm: React.FC = () => {
+const FormPage: React.FC = () => {
     return (
         <div className="experience-container">
         </div>
     );
 };
 
-export default ExperienceForm;
+export default FormPage;

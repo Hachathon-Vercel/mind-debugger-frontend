@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Navbar />
       <header className="App-header quote">
-        <p>Hola! Camilo! Camilo Camilo</p>
+        <p>Hola!</p>
       </header>
     </div>
   );
