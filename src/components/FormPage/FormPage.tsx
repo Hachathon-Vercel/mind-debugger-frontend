@@ -66,7 +66,7 @@ const FormPage: React.FC = () => {
                     </form>
                 </div>
                 <div className="legal-container flex items-center">
-                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href="#" className="aviso">Aviso legal</a></p>
+                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href=" /DisclaimerPage" className="aviso">Aviso legal</a></p>
                     <FiArrowUpRight className="legal-icon" />
                 </div>
             </div>

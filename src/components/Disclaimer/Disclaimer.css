@@ -1,0 +1,55 @@
+.form-page {
+    background: #000000;
+    flex-grow: 1;
+    z-index: 1;
+}
+
+.overlay1 {
+    background: radial-gradient(circle at top left, rgba(177, 45, 142, 0.326), transparent 75%);
+}
+
+.overlay2 {
+    background: radial-gradient(circle at bottom right, rgba(146, 37, 118, 0.24), transparent 50%);
+    opacity: 0.50;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #9b47df, #7E25C5, #E0088E);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.text-description {
+    font-size: 14px;
+    font-weight: 300;
+    color: #848484;
+}
+
+.text-iconColor {
+    color: #848484;
+}
+
+.regresar {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 200;
+    color: #848484;
+}
+
+.back-container {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
