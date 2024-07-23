@@ -1,8 +1,8 @@
 import React from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import './Chat.css';
+import './Demo.css';
 
-const Chat = () => {
+const Demo = () => {
     const handleBack = () => {
         window.history.back();
     };
@@ -18,4 +18,4 @@ const Chat = () => {
     );
 };
 
-export default Chat;
+export default Demo;

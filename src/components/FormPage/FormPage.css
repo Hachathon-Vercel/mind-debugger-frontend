@@ -141,9 +141,9 @@ body {
     box-shadow: 1px 1px 5px 1px #7d25c52b, 1px 1px 5px 1px #f4f4f44b;
 }
 
-.submit-button {
+.submit-button.inactive {
     background: #1A1A1A;
-    color: white;
+    color: rgb(10, 9, 9);
     padding: 8px 16px;
     border-radius: 8px;
     width: 100%;
@@ -151,13 +151,14 @@ body {
     font-weight: 600;
 }
 
-.submit-button:hover {
+.submit-button.active {
     background: white;
     color: black;
     padding: 8px 16px;
     border-radius: 8px;
     width: 100%;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .legal-container {

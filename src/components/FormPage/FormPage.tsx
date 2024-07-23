@@ -1,16 +1,30 @@
 import React, { useState, useRef } from 'react';
 import './FormPage.css';
 import { FiArrowUpRight } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 const FormPage: React.FC = () => {
     const [showNameInput, setShowNameInput] = useState(false);
+    const [name, setName] = useState("");
     const nameInputRef = useRef<HTMLInputElement | null>(null);
+    const navigate = useNavigate();
 
     const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setShowNameInput(true);
         setTimeout(() => {
             nameInputRef.current?.focus();
         }, 0);
+    };
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (name.trim()) {
+            navigate('/chat');
+        }
     };
 
     return (
@@ -29,7 +43,7 @@ const FormPage: React.FC = () => {
                 <div className="form-container">
                     <h2 className="form-title mb-2">Selecciona tu nivel de experiencia</h2>
                     <p className="form-subtitle mb-2">Nivel de experiencia</p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label className="radio-label">
                                 Junior
@@ -57,16 +71,28 @@ const FormPage: React.FC = () => {
                         {showNameInput && (
                             <div className="form-group">
                                 <label className="form-subtitle" htmlFor="name">Tu nombre</label>
-                                <input type="text" id="name" name="name" className="input" ref={nameInputRef} />
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    className="input"
+                                    ref={nameInputRef}
+                                    value={name}
+                                    onChange={handleNameChange}
+                                />
                             </div>
                         )}
-                        <button type="submit" className="submit-button mt-2">
+                        <button
+                            type="submit"
+                            className={`submit-button mt-2 ${name.trim() ? 'active' : 'inactive'}`}
+                            disabled={!name.trim()}
+                        >
                             Siguiente
                         </button>
                     </form>
                 </div>
                 <div className="legal-container flex items-center">
-                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href=" /DisclaimerPage" className="aviso">Aviso legal</a></p>
+                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href="/DisclaimerPage" className="aviso">Aviso legal</a></p>
                     <FiArrowUpRight className="legal-icon" />
                 </div>
             </div>
