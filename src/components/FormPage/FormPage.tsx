@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import './FormPage.css';
 import { FiArrowUpRight } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const FormPage: React.FC = () => {
     const [showNameInput, setShowNameInput] = useState(false);
@@ -92,8 +93,10 @@ const FormPage: React.FC = () => {
                     </form>
                 </div>
                 <div className="legal-container flex items-center">
-                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href="/DisclaimerPage" className="aviso">Aviso legal</a></p>
-                    <FiArrowUpRight className="legal-icon" />
+                    <p className="legal-text">¿Tienes problemas serios? Consulta nuestro <a href="/disclaimer" className="aviso">Aviso legal</a></p>
+                    <Link to="/disclaimer" className="legal-icon">
+                        <FiArrowUpRight />
+                    </Link>
                 </div>
             </div>
         </div>
