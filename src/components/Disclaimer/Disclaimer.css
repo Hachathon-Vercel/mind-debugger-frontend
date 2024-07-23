@@ -20,9 +20,36 @@
 }
 
 .gradient-text {
-    background: linear-gradient(to right, #7E25C5, #E0088E);
+    background: linear-gradient(to right, #9b47df, #7E25C5, #E0088E);
     -webkit-background-clip: text;
     color: transparent;
     font-size: 28px;
     font-weight: 800;
+}
+
+.text-description {
+    font-size: 14px;
+    font-weight: 300;
+    color: #848484;
+}
+
+.text-iconColor {
+    color: #848484;
+}
+
+.regresar {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 200;
+    color: #848484;
+}
+
+.back-container {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
