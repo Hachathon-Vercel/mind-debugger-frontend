@@ -17,6 +17,9 @@ module.exports = {
         'purple-selection': 'var(--purple-selection)',
         'dark-gray': 'var(--dark-gray)',
       },
+      backgroundImage: theme => ({
+        'backgroundTexture': "url('/src/assets/images/bg-texture.png')",
+      }),
     },
   },
   plugins: [],
