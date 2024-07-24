@@ -1,0 +1,78 @@
+/* AudioPlayer.css */
+.waveform-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 60px;
+    width: 40%;
+    max-width: 600px;
+    background: #1e1e1e;
+    border-radius: 20px 20px 20px 0;
+    padding: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.waveform-container.played {
+    background: #1e1e1e;
+}
+
+.wave {
+    width: calc(100% - 60px);
+    /* Adjusted width */
+    height: 100%;
+}
+
+.play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background: #010101;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.play-button img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0) saturate(100%) invert(48%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(95%);
+}
+
+.play-button img.played {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(17%) saturate(6697%) hue-rotate(253deg) brightness(97%) contrast(97%);
+}
+
+.time-display {
+    color: #757171;
+    font-size: 12px;
+    position: absolute;
+    bottom: 5px;
+    left: 50px;
+}
+
+@media (max-width: 768px) {
+    .waveform-container {
+        flex-direction: row;
+        align-items: center;
+        height: 60px;
+        padding: 10px;
+    }
+
+    .play-button {
+        margin-right: 10px;
+    }
+
+    .time-display {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-left: 10px;
+    }
+}
