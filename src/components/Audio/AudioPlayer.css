@@ -1,62 +1,78 @@
-.audio-player {
+/* AudioPlayer.css */
+.waveform-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    background-color: #333;
-    border-radius: 30px;
-    padding: 10px;
-    width: 300px;
-    background-color: #333;
-    align-self: flex-start;
+    justify-content: flex-start;
+    height: 60px;
+    width: 40%;
+    max-width: 600px;
+    background: #1e1e1e;
     border-radius: 20px 20px 20px 0;
-}
-
-.play-pause {
-    background-color: #000000;
-    border: none;
-    border-radius: 50%;
-    color: #BF7AE4;
-    font-size: 16px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.waveform {
+    padding: 10px;
     position: relative;
-    flex-grow: 1;
-    height: 30px;
-    background-color: #1e1e1e;
-    border-radius: 15px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+    box-sizing: border-box;
 }
 
-.waveform::before {
-    content: '';
-    position: absolute;
+.waveform-container.played {
+    background: #1e1e1e;
+}
+
+.wave {
+    width: calc(100% - 60px);
+    /* Adjusted width */
+    height: 100%;
+}
+
+.play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background: #010101;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.play-button img {
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(90deg,
-            #3a3a3a 0,
-            #3a3a3a 2px,
-            #1e1e1e 2px,
-            #1e1e1e 4px);
+    filter: brightness(0) saturate(100%) invert(48%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(95%);
 }
 
-.progress {
+.play-button img.played {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(17%) saturate(6697%) hue-rotate(253deg) brightness(97%) contrast(97%);
+}
+
+.time-display {
+    color: #757171;
+    font-size: 12px;
     position: absolute;
-    height: 100%;
-    background-color: #BF7AE4;
-    width: 0;
-    transition: width 0.1s linear;
+    bottom: 5px;
+    left: 50px;
 }
 
-.duration {
-    margin-left: 10px;
-    font-size: 14px;
+@media (max-width: 768px) {
+    .waveform-container {
+        flex-direction: row;
+        align-items: center;
+        height: 60px;
+        padding: 10px;
+    }
+
+    .play-button {
+        margin-right: 10px;
+    }
+
+    .time-display {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-left: 10px;
+    }
 }

@@ -1,59 +1,77 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import WaveSurfer from 'wavesurfer.js';
 import './AudioPlayer.css';
-import sampleAudio from '../../assets/audios/sample.mp3'; // Ajusta la ruta del archivo de audio según tu estructura
+import playIcon from '../../assets/images/play.svg';
+import pauseIcon from '../../assets/images/pause.svg';
+import sampleAudio from '../../assets/audios/sample.mp3';
 
 interface AudioPlayerProps {
     src?: string;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const progressRef = useRef<HTMLDivElement>(null);
+    const waveformRef = useRef<HTMLDivElement>(null);
+    const wavesurfer = useRef<WaveSurfer | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [duration, setDuration] = useState('00:00');
-    const [currentTime, setCurrentTime] = useState('00:00');
+    const [currentTime, setCurrentTime] = useState(0);
+    const [isPlayed, setIsPlayed] = useState(false);
+
+    useEffect(() => {
+        if (waveformRef.current) {
+            wavesurfer.current = WaveSurfer.create({
+                container: waveformRef.current,
+                waveColor: isPlayed ? '#BF7AE4' : '#494747',
+                progressColor: '#BF7AE4',
+                height: 35,
+                responsive: true,
+                barWidth: 5,
+                barGap: 3,
+                cursorColor: 'transparent',
+            });
+
+            wavesurfer.current.load(src || sampleAudio);
+
+            wavesurfer.current.on('ready', () => {
+                console.log('WaveSurfer is ready');
+            });
+
+            wavesurfer.current.on('audioprocess', () => {
+                setCurrentTime(wavesurfer.current?.getCurrentTime() || 0);
+            });
+
+            wavesurfer.current.on('finish', () => {
+                setIsPlaying(false);
+                setIsPlayed(true);
+            });
+        }
+
+        return () => {
+            if (wavesurfer.current) {
+                wavesurfer.current.destroy();
+            }
+        };
+    }, [src, isPlayed]);
 
     const togglePlayPause = () => {
-        const audio = audioRef.current;
-        if (audio) {
-            if (isPlaying) {
-                audio.pause();
-            } else {
-                audio.play();
-            }
+        if (wavesurfer.current) {
+            wavesurfer.current.playPause();
             setIsPlaying(!isPlaying);
         }
     };
 
-    const updateProgress = () => {
-        const audio = audioRef.current;
-        const progress = progressRef.current;
-        if (audio && progress) {
-            const currentTime = audio.currentTime;
-            const duration = audio.duration;
-            const progressPercent = (currentTime / duration) * 100;
-            progress.style.width = `${progressPercent}%`;
-            setCurrentTime(formatTime(currentTime));
-            setDuration(formatTime(duration));
-        }
-    };
-
-    const formatTime = (time: number) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
     return (
-        <div className="audio-player">
-            <button className="play-pause" onClick={togglePlayPause}>
-                {isPlaying ? '❚❚' : '▶'}
+        <div className={`waveform-container ${isPlayed ? 'played' : ''}`}>
+            <button className="play-button" onClick={togglePlayPause}>
+                <img src={isPlaying ? pauseIcon : playIcon} alt="Play/Pause" className={isPlayed ? 'played' : ''} />
             </button>
-            <div className="waveform">
-                <div ref={progressRef} className="progress"></div>
-            </div>
-            <span className="duration">{currentTime}</span>
-            <audio ref={audioRef} src={src || sampleAudio} onTimeUpdate={updateProgress} onLoadedMetadata={updateProgress}></audio>
+            <div className="wave" ref={waveformRef} />
+            <div className="time-display">{formatTime(currentTime)}</div>
         </div>
     );
 };
