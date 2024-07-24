@@ -69,6 +69,7 @@ body {
     margin: 0 auto;
     z-index: 1;
     overflow: hidden;
+    box-shadow: 0 0 10px rgba(237, 72, 174, 0.228);
 }
 
 .form-container::before {
@@ -87,6 +88,7 @@ body {
     mask-composite: exclude;
     -webkit-mask-composite: xor;
     padding: 2px;
+    box-shadow: 8px 8px 8px rgba(224, 8, 141, 0.1);
 }
 
 .form-title {

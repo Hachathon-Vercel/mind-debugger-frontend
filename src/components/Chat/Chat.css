@@ -51,7 +51,7 @@
     background: linear-gradient(90deg, #f1eff044, #e0a30844, #c8097f45, #23a9a953, #07070755);
     background-size: 200% 200%;
     animation: gradient-border 4s linear infinite;
-    box-shadow: 8px 8px 8px rgba(224, 8, 141, 0.1);
+    box-shadow: 0 0 20px rgba(237, 72, 174, 0.228);
     z-index: 2;
     width: 90%;
     max-width: 900px;
