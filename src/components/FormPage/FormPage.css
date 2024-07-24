@@ -11,11 +11,11 @@ body {
 }
 
 .overlay1 {
-    background: radial-gradient(circle at top left, rgba(177, 45, 142, 0.326), transparent 75%);
+    background: radial-gradient(circle at top left, rgba(177, 45, 142, 0.361), transparent 75%);
 }
 
 .overlay2 {
-    background: radial-gradient(circle at bottom right, rgba(146, 37, 118, 0.24), transparent 50%);
+    background: radial-gradient(circle at top right, rgba(99, 37, 146, 0.281), transparent 75%);
     opacity: 0.50;
 }
 
@@ -25,11 +25,24 @@ body {
     color: white;
 }
 
+@keyframes move-color {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .gradient-text {
-    background: linear-gradient(to right, #9b47df, #7E25C5, #E0088E);
+    background: linear-gradient(to right, #ffffff, #7E25C5, #E0088E);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     color: transparent;
+    animation: move-color 5s linear infinite;
 }
+
 
 .description {
     font-size: 14px;
@@ -37,13 +50,43 @@ body {
     color: #848484;
 }
 
+@keyframes move-border {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .form-container {
+    position: relative;
     background: rgba(0, 0, 0, 0.58);
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
     border-radius: 8px;
-    border: 1px solid #8484842c;
     max-width: 400px;
     margin: 0 auto;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(to right, #ffffff3b, #7d25c558, #e0088d41, #ffffff45);
+    background-size: 200% 200%;
+    border-radius: 8px;
+    z-index: -1;
+    animation: move-border 15s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 2px;
 }
 
 .form-title {
@@ -77,13 +120,27 @@ body {
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s, border-color 0.3s;
+    position: relative;
+    /* Agrega esta línea */
+}
+
+@keyframes move-color {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .radio-label:hover {
-    background: linear-gradient(to right, #bf7ae430, #e5e1e827);
+    background: linear-gradient(to right, #ffffff2b, #7d25c553, #e0088d26);
+    background-size: 200% 200%;
     color: white;
     font-size: 14px;
     border-color: #8484844c;
+    animation: move-color 5s linear infinite;
 }
 
 .radio-label input[type="radio"] {
@@ -100,6 +157,18 @@ body {
     transition: background-color 0.3s, border-color 0.3s;
 }
 
+@keyframes splash {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
 .radio-label input[type="radio"]:checked::before {
     content: '';
     display: block;
@@ -112,6 +181,22 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     border: none;
+}
+
+.radio-label input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 20%;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(191, 122, 228, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    animation: splash 0.6s ease-out forwards;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .radio-label input[type="radio"]:checked {

@@ -33,10 +33,10 @@ const FormPage: React.FC = () => {
             <div className="overlay1 absolute inset-0"></div>
             <div className="overlay2 absolute inset-0"></div>
             <div className="relative z-10 text-center">
-                <h1 className="title mt-2">
+                <h1 className="title">
                     Debuguea <span className="gradient-text">tu mente con la</span> IA.
                 </h1>
-                <p className="description mt-6 mb-6">
+                <p className="description mt-4 mb-4">
                     Nuestro chatbot de IA ofrece apoyo emocional para programadores, planteando<br />
                     preguntas y generando audio para ayudarte a manejar el estrés.
                 </p>
