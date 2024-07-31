@@ -1,180 +1,284 @@
 .bg {
-    background-image: url('/src/assets/images/bg-texture.png');
-    background-color: #000000;
-    background-size: auto;
-    background-repeat: repeat;
-    flex-grow: 1;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    padding-top: 0px;
+  background-image: url('/src/assets/images/bg-texture.png');
+  background-color: #000000;
+  background-size: auto;
+  background-repeat: repeat;
+  flex-grow: 1;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 0px;
 }
 
 .line-container {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
 .line {
-    width: 120%;
-    height: 1px;
-    background: linear-gradient(90deg, #f1eff076, #e0a308ae, #c8097f9f, #23a9a9a7, #070707c2);
-    background-size: 200% 100%;
-    animation: move-color 5s linear infinite;
-    margin: 30px 0;
+  width: 120%;
+  height: 1px;
+  background: linear-gradient(90deg, #f1eff076, #e0a308ae, #c8097f9f, #23a9a9a7, #070707c2);
+  background-size: 200% 100%;
+  animation: move-color 5s linear infinite;
+  margin: 30px 0;
 }
 
 @keyframes move-color {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%;
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .chat-container-wrapper {
-    position: relative;
-    padding: 1px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #f1eff044, #e0a30844, #c8097f45, #23a9a953, #07070755);
-    background-size: 200% 200%;
-    animation: gradient-border 4s linear infinite;
-    box-shadow: 0 0 20px rgba(237, 72, 174, 0.228);
-    z-index: 2;
-    width: 90%;
-    max-width: 900px;
-    box-sizing: border-box;
-    padding-top: 6px;
-    height: 75.3vh;
+  position: relative;
+  padding: 1px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f1eff044, #e0a30844, #c8097f45, #23a9a953, #07070755);
+  background-size: 200% 200%;
+  animation: gradient-border 4s linear infinite;
+  box-shadow: 0 0 20px rgba(237, 72, 174, 0.228);
+  z-index: 2;
+  width: 90%;
+  max-width: 900px;
+  box-sizing: border-box;
+  padding-top: 1px;
+  height: 75.5vh;
 }
 
 @keyframes gradient-border {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%;
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .chat-container {
-    background-color: #000000;
-    border-radius: 10px;
-    padding: 60px 20px 20px 20px;
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    position: relative;
-    margin-top: -5px;
-    height: 74.9vh;
+  background-color: #000000;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  height: 74.9vh;
 }
 
 .box-title {
-    background-color: #100F11;
-    border-radius: 10px 10px 0 0;
-    /* Solo redondeamos las esquinas superiores */
-    font-size: 16px;
-    font-weight: 500;
-    padding: 25px;
-    color: #848484;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+  background-color: #100F11;
+  border-radius: 10px 10px 0 0;
+  /* Solo redondeamos las esquinas superiores */
+  font-size: 16px;
+  font-weight: 500;
+  padding: 25px;
+  color: #848484;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
+/* Ajustes para el contenedor de mensajes */
 .message-container {
-    margin-top: 40px;
+  position: absolute;
+  top: 60px;
+  /* Debajo del título */
+  bottom: 80px;
+  /* Deja espacio suficiente para el input y el indicador de "escribiendo" */
+  width: calc(100% - 40px);
+  /* Ajustar al padding del contenedor */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .message-container .message {
-    padding: 10px 15px;
-    border-radius: 20px;
-    max-width: 80%;
-    color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 80%;
+  color: white;
+  margin: 2px 0;
 }
 
 .message-container .message.received {
-    background: #1e1e1e;
-    align-self: flex-start;
-    border-radius: 20px 20px 20px 0;
-    font-size: 14px;
+  background: #1e1e1e;
+  align-self: flex-start;
+  border-radius: 10px 10px 10px 0;
+  font-size: 14px;
 }
 
 .message-container .message.sent {
-    background-color: #525050;
-    align-self: flex-end;
-    border-radius: 20px 20px 0 20px;
-    font-size: 14px;
+  background-color: #302c31;
+  align-self: flex-end;
+  border-radius: 10px 10px 0px 10px;
+  font-size: 14px;
+  margin: 2px 0;
 }
 
 .audio-message audio {
-    width: 40%;
-    border-radius: 10px;
-    margin-top: 10px;
+  width: 40%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* Estilo para el input y botón */
+.input-container {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 40px);
+  /* Ajustar al padding del contenedor */
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  /* Asegura que el fondo coincida con el contenedor */
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .input-container input {
-    background-color: #151316;
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 20px;
-    border: none;
-    width: 100%;
-    border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: -8px;
-    margin-left: -8px;
-}
-
-/* Para el input del chat */
-.flex-grow.p-2.rounded-md.bg-inputBackground::placeholder {
-    color: #525050;
-    font-size: 12px;
-}
-
-.flex-grow.p-2.rounded-md.bg-inputBackground:focus {
-    outline: none;
-    box-shadow: none;
+  background-color: #151316;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  border: none;
+  width: 100%;
 }
 
 .input-container button {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 640px) {
-    .chat-container-wrapper {
-        width: 90%;
-    }
+  .chat-container-wrapper {
+    width: 90%;
+  }
 }
 
 @media (min-width: 768px) {
-    .chat-container-wrapper {
-        width: 90%;
-    }
+  .chat-container-wrapper {
+    width: 90%;
+  }
 }
 
 .hover-icon:hover img {
-    filter: brightness(0) saturate(100%) invert(68%) sepia(17%) saturate(6697%) hue-rotate(253deg) brightness(97%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(68%) sepia(17%) saturate(6697%) hue-rotate(253deg) brightness(97%) contrast(97%);
+}
+
+.input-container input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.input-container input::placeholder {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: #393838;
+}
+
+.input-container input:focus::placeholder {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.input-container input:not(:placeholder-shown)+.input-container input:focus::placeholder {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* Barra del scroll */
+.message-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.message-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+  background: rgba(190, 121, 215, 0.224);
+  border-radius: 10px;
+}
+
+.message-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(190, 121, 215, 0.345);
+}
+
+.typing {
+  display: block;
+  width: 60px;
+  height: 40px;
+  border-radius: 20px;
+  margin: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1e1e1e;
+}
+
+.circle {
+  display: block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: rgba(215, 121, 196, 0.461);
+  margin: 3px;
+  animation: bounce 1000ms ease-in-out infinite;
+}
+
+.circle:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.circle:nth-child(2) {
+  animation-delay: 333ms;
+}
+
+.circle:nth-child(3) {
+  animation-delay: 666ms;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  33% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }

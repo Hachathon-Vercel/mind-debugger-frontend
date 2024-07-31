@@ -24,7 +24,7 @@ const FormPage: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (name.trim()) {
-            navigate('/chat');
+            navigate('/chat', { state: { userName: name.trim() } });
         }
     };
 
