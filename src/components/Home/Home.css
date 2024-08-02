@@ -1,0 +1,19 @@
+/* Barra del scroll */
+.home-page::-webkit-scrollbar {
+    width: 8px;
+}
+
+.home-page::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.home-page::-webkit-scrollbar-thumb {
+    background: rgba(190, 121, 215, 0.224);
+    border-radius: 10px;
+}
+
+.home-page::-webkit-scrollbar-thumb:hover {
+    background: rgba(190, 121, 215, 0.345);
+}

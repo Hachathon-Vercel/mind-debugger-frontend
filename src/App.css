@@ -3,3 +3,25 @@
 body {
     font-family: 'Inter', sans-serif;
 }
+
+/* Barra del scroll */
+::-webkit-scrollbar {
+    width: 6px;
+    background: rgba(0, 0, 0, 0.34);
+    margin: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 50px;
+    margin: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(33, 1, 44, 0.788);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(190, 121, 215, 0.621);
+}
