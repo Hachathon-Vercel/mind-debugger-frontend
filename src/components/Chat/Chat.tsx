@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import './Chat.css';
+import { useLocation } from 'react-router-dom';
 import sendIcon from '../../assets/images/send-icon.svg';
 import AudioPlayer from '../Audio/AudioPlayer';
+import './Chat.css';
+import sampleAudio from '../../assets/audios/sample.mp3';
+import { userQuestion } from '../../services/questionService';
+import { generateTextAsync } from '../../services/sdkOpenAI';
+import { textToAudio } from '../../services/audioService';
 
 interface Message {
   text?: string;
   type: 'received' | 'sent' | 'audio';
-  src?: string;
+  url?: string;
 }
 
 const Chat: React.FC = () => {
@@ -16,12 +20,14 @@ const Chat: React.FC = () => {
   const userName = (location.state as { userName: string })?.userName || "Usuario";
 
   const [messages, setMessages] = useState<Message[]>([
-    { text: `¡Hola ${userName}! ¿Cómo te sientes?`, type: 'received' }
+    { text: `¡Hola ${userName}! Me alegra mucho verte hoy. ¿Cómo te estás sintiendo? ¿Cómo puedo ayudarte?`, type: 'received' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [currentPlaying, setCurrentPlaying] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     localStorage.setItem('chatMessages', JSON.stringify(messages));
@@ -29,7 +35,16 @@ const Chat: React.FC = () => {
   }, [messages]);
 
   useEffect(() => {
-    const handleClick = () => {
+    const handleClick = (event: MouseEvent) => {
+      const selection = window.getSelection();
+      if (selection && selection.type === 'Range') {
+        return;
+      }
+
+      if (messageContainerRef.current && messageContainerRef.current.contains(event.target as Node)) {
+        return;
+      }
+
       inputRef.current?.focus();
     };
 
@@ -44,19 +59,54 @@ const Chat: React.FC = () => {
     window.history.back();
   };
 
-  const handleSend = () => {
+
+  const handleSend = async () => {
     if (inputValue.trim() !== '') {
       setMessages([...messages, { text: inputValue, type: 'sent' }]);
       setInputValue('');
       setIsTyping(true);
 
-      // Simula una respuesta de la IA después de un retraso
-      setTimeout(() => {
-        setMessages(prevMessages => [...prevMessages, { text: 'Respuesta del chat', type: 'received' }]);
+      try {
+        const threadIdValue = localStorage.getItem('threadId') ?? '';
+        const answer = await userQuestion(threadIdValue, inputValue);
+        const formattedText = await generateTextAsync(answer);
+        const { ok, audioUrl } = await textToAudio(formattedText);
+
+        if (ok && audioUrl) {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { type: 'audio', url: audioUrl }
+          ]);
+        } else {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { text: answer, type: 'received' }
+          ]);
+        }
+
         setIsTyping(false);
-      }, 5000);
+      } catch (error) {
+        console.error('Error creating thread:', error);
+        setIsTyping(false);
+      }
     }
   };
+
+  // const handleSend = async () => {
+  //   if (inputValue.trim() !== '') {
+  //     setMessages([...messages, { text: inputValue, type: 'sent' }]);
+  //     setInputValue('');
+  //     setIsTyping(true);
+
+  //     setTimeout(() => {
+  //       setMessages(prevMessages => [
+  //         ...prevMessages,
+  //         { type: 'audio', url: sampleAudio }
+  //       ]);
+  //       setIsTyping(false);
+  //     }, 1000);
+  //   }
+  // };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -76,11 +126,15 @@ const Chat: React.FC = () => {
       <div className="chat-container-wrapper">
         <div className="chat-container bg-darkBackground p-4 rounded-md shadow-md w-full relative">
           <h2 className="text-white mb-4 box-title">Debugger Chat</h2>
-          <div className="message-container flex flex-col space-y-4 mt-6 mb-6">
+          <div className="message-container flex flex-col space-y-4 mt-6 mb-6" ref={messageContainerRef}>
             {messages.map((message: Message, index: number) => (
               <div key={index} className={`message ${message.type}`}>
                 {message.type === 'audio' ? (
-                  <AudioPlayer src={message.src as string} />
+                  <AudioPlayer
+                    url={message.url as string}
+                    currentPlaying={currentPlaying}
+                    setCurrentPlaying={setCurrentPlaying}
+                  />
                 ) : (
                   message.text
                 )}

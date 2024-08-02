@@ -3,14 +3,18 @@ import './FormPage.css';
 import { FiArrowUpRight } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { createThread } from '../../services/assistantThread';
+import { userQuestion } from '../../services/questionService';
 
 const FormPage: React.FC = () => {
     const [showNameInput, setShowNameInput] = useState(false);
     const [name, setName] = useState("");
+    const [experience, setExperience] = useState("");
     const nameInputRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate();
 
     const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setExperience(e.target.value);
         setShowNameInput(true);
         setTimeout(() => {
             nameInputRef.current?.focus();
@@ -21,11 +25,25 @@ const FormPage: React.FC = () => {
         setName(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (name.trim()) {
             navigate('/chat', { state: { userName: name.trim() } });
         }
+        // Llama a la función createThread para crear un nuevo thread
+        const threadId = await createThread();
+        console.log('Thread created with ID:', threadId);
+        localStorage.setItem('threadId', threadId);
+        localStorage.setItem('name', name);
+        localStorage.setItem('experience', experience);
+        const userName = name;
+        const userExperience = experience;
+        const presentationMessage = `Hola, me llamo ${userName} y soy ${userExperience}`;
+
+        // Send the presentation message
+        const answer = await userQuestion(threadId, presentationMessage);
+        console.log(answer);
+
     };
 
     return (

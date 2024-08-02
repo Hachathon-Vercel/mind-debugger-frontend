@@ -1,12 +1,11 @@
-/* AudioPlayer.css */
 .waveform-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     height: 60px;
-    width: 40%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 700px;
     background: #1e1e1e;
     border-radius: 20px 20px 20px 0;
     padding: 10px;
@@ -20,8 +19,19 @@
 
 .wave {
     width: calc(100% - 60px);
-    /* Adjusted width */
     height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.wave-gradient {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    width: calc(100% - 60px);
+    height: 35px;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .play-button {
@@ -63,6 +73,12 @@
         align-items: center;
         height: 60px;
         padding: 10px;
+        width: 100%;
+    }
+
+    .wave {
+        width: calc(100% - 60px);
+        height: 100%;
     }
 
     .play-button {
@@ -74,5 +90,16 @@
         bottom: auto;
         left: auto;
         margin-left: 10px;
+    }
+}
+
+/* Agregar media query para escritorio */
+@media (min-width: 769px) {
+    .waveform-container {
+        max-width: 300px;
+    }
+
+    .wave {
+        width: calc(100% - 60px);
     }
 }
