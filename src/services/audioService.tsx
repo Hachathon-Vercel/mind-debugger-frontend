@@ -15,9 +15,6 @@ export const textToAudio = async (text: string) => {
 
         const audioFile = await resp.blob();
         const audioUrl = URL.createObjectURL(audioFile);
-
-        console.log({ audioUrl });
-
         return { ok: true, audioUrl: audioUrl };
 
     } catch (error) {

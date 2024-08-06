@@ -2,7 +2,6 @@
 export const createThread = async (apiKey: string): Promise<string> => {
     try {
         const apiBase = process.env.REACT_APP_ENV_BASE;
-        console.log(apiKey, "apiKey: ")
         const response = await fetch(`${apiBase}/sam-assistant/create-thread`, {
             method: 'POST',
             headers: {

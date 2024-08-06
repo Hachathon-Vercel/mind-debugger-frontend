@@ -39,13 +39,11 @@ const FormPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(apiKeyOpenAI, "API key");
         if (name.trim() && apiKeyOpenAI.trim()) {
             navigate('/chat', { state: { userName: name.trim(), apiKey: apiKeyOpenAI.trim() } });
         }
         // Llama a la función createThread para crear un nuevo thread
         const threadId = await createThread(apiKeyOpenAI);
-        console.log('Thread created with ID:', threadId);
         localStorage.setItem('threadId', threadId);
         localStorage.setItem('name', name);
         localStorage.setItem('experience', experience);
@@ -56,7 +54,6 @@ const FormPage: React.FC = () => {
 
         // Send the presentation message
         const answer = await userQuestion(threadId, presentationMessage, apiKeyOpenAI);
-        console.log(answer);
     };
 
     return (

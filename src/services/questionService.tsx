@@ -2,7 +2,6 @@
 export const userQuestion = async (threadId: string, question: string, apiKey: string): Promise<string> => {
     try {
         const apiBase = process.env.REACT_APP_ENV_BASE;
-        console.log(apiKey, "apiKey: ")
         const response = await fetch(`${apiBase}/sam-assistant/user-question`, {
             method: 'POST',
             headers: {
