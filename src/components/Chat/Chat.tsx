@@ -93,7 +93,7 @@ const Chat: React.FC = () => {
         }
         setMessages(prevMessages => [
           ...prevMessages,
-          { text: 'Hubo un error procesando tu petición. Por favor, intenta más tarde.', type: 'received' }
+          { text: 'Por favor, regresa al home e ingresa una API Key válida.', type: 'received' }
         ]);
       }
     }
