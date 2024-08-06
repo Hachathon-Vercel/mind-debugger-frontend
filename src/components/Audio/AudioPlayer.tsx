@@ -19,34 +19,38 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ url, currentPlaying, setCurre
     const [duration, setDuration] = useState(0);
 
     useEffect(() => {
-        if (waveformRef.current) {
-            wavesurfer.current = WaveSurfer.create({
-                container: waveformRef.current,
-                waveColor: isPlayed ? '#BF7AE4' : '#494747',
-                progressColor: '#BF7AE4',
-                height: 35,
-                responsive: true,
-                barWidth: 5,
-                barGap: 3,
-                cursorColor: 'transparent',
-            });
-
-            if (url) {
-                wavesurfer.current.load(url);
-
-                wavesurfer.current.on('ready', () => {
-                    setDuration(wavesurfer.current?.getDuration() || 0);
+        try {
+            if (waveformRef.current) {
+                wavesurfer.current = WaveSurfer.create({
+                    container: waveformRef.current,
+                    waveColor: isPlayed ? '#BF7AE4' : '#494747',
+                    progressColor: '#BF7AE4',
+                    height: 35,
+                    responsive: true,
+                    barWidth: 5,
+                    barGap: 3,
+                    cursorColor: 'transparent',
                 });
 
-                wavesurfer.current.on('audioprocess', () => {
-                    setCurrentTime(wavesurfer.current?.getCurrentTime() || 0);
-                });
+                if (url) {
+                    wavesurfer.current.load(url);
 
-                wavesurfer.current.on('finish', () => {
-                    setIsPlaying(false);
-                    setIsPlayed(true);
-                });
+                    wavesurfer.current.on('ready', () => {
+                        setDuration(wavesurfer.current?.getDuration() || 0);
+                    });
+
+                    wavesurfer.current.on('audioprocess', () => {
+                        setCurrentTime(wavesurfer.current?.getCurrentTime() || 0);
+                    });
+
+                    wavesurfer.current.on('finish', () => {
+                        setIsPlaying(false);
+                        setIsPlayed(true);
+                    });
+                }
             }
+        } catch (error) {
+            console.log('Error initializing WaveSurfer:', error);
         }
 
         return () => {

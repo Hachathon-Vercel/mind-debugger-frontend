@@ -8,9 +8,12 @@ import { userQuestion } from '../../services/questionService';
 
 const FormPage: React.FC = () => {
     const [showNameInput, setShowNameInput] = useState(false);
+    const [showApiKeyInput, setShowApiKeyInput] = useState(false);
     const [name, setName] = useState("");
+    const [apiKeyOpenAI, setApiKey] = useState("");
     const [experience, setExperience] = useState("");
     const nameInputRef = useRef<HTMLInputElement | null>(null);
+    const apiKeyInputRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate();
 
     const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,27 +26,37 @@ const FormPage: React.FC = () => {
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
+        if (e.target.value.trim()) {
+            setShowApiKeyInput(true);
+        } else {
+            setShowApiKeyInput(false);
+        }
+    };
+
+    const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setApiKey(e.target.value);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (name.trim()) {
-            navigate('/chat', { state: { userName: name.trim() } });
+        console.log(apiKeyOpenAI, "API key");
+        if (name.trim() && apiKeyOpenAI.trim()) {
+            navigate('/chat', { state: { userName: name.trim(), apiKey: apiKeyOpenAI.trim() } });
         }
         // Llama a la función createThread para crear un nuevo thread
-        const threadId = await createThread();
+        const threadId = await createThread(apiKeyOpenAI);
         console.log('Thread created with ID:', threadId);
         localStorage.setItem('threadId', threadId);
         localStorage.setItem('name', name);
         localStorage.setItem('experience', experience);
+        localStorage.setItem('apiKey', apiKeyOpenAI);
         const userName = name;
         const userExperience = experience;
         const presentationMessage = `Hola, me llamo ${userName} y soy ${userExperience}`;
 
         // Send the presentation message
-        const answer = await userQuestion(threadId, presentationMessage);
+        const answer = await userQuestion(threadId, presentationMessage, apiKeyOpenAI);
         console.log(answer);
-
     };
 
     return (
@@ -101,10 +114,24 @@ const FormPage: React.FC = () => {
                                 />
                             </div>
                         )}
+                        {showApiKeyInput && (
+                            <div className="form-group">
+                                <label className="form-subtitle" htmlFor="apiKey">Ingresa tu API KEY</label>
+                                <input
+                                    type="text"
+                                    id="apiKey"
+                                    name="apiKey"
+                                    className="input"
+                                    ref={apiKeyInputRef}
+                                    value={apiKeyOpenAI}
+                                    onChange={handleApiKeyChange}
+                                />
+                            </div>
+                        )}
                         <button
                             type="submit"
-                            className={`submit-button mt-2 ${name.trim() ? 'active' : 'inactive'}`}
-                            disabled={!name.trim()}
+                            className={`submit-button mt-2 ${name.trim() && apiKeyOpenAI.trim() ? 'active' : 'inactive'}`}
+                            disabled={!name.trim() || !apiKeyOpenAI.trim()}
                         >
                             Siguiente
                         </button>
@@ -122,3 +149,4 @@ const FormPage: React.FC = () => {
 };
 
 export default FormPage;
+

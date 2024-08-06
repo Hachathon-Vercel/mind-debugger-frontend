@@ -4,11 +4,10 @@ import { useLocation } from 'react-router-dom';
 import sendIcon from '../../assets/images/send-icon.svg';
 import AudioPlayer from '../Audio/AudioPlayer';
 import './Chat.css';
-import sampleAudio from '../../assets/audios/sample.mp3';
+//import sampleAudio from '../../assets/audios/sample.mp3';
 import { userQuestion } from '../../services/questionService';
 import { generateTextAsync } from '../../services/sdkOpenAI';
 import { textToAudio } from '../../services/audioService';
-
 interface Message {
   text?: string;
   type: 'received' | 'sent' | 'audio';
@@ -59,7 +58,6 @@ const Chat: React.FC = () => {
     window.history.back();
   };
 
-
   const handleSend = async () => {
     if (inputValue.trim() !== '') {
       setMessages([...messages, { text: inputValue, type: 'sent' }]);
@@ -68,8 +66,9 @@ const Chat: React.FC = () => {
 
       try {
         const threadIdValue = localStorage.getItem('threadId') ?? '';
-        const answer = await userQuestion(threadIdValue, inputValue);
-        const formattedText = await generateTextAsync(answer);
+        const apiKey = localStorage.getItem('apiKey') ?? '';
+        const answer = await userQuestion(threadIdValue, inputValue, apiKey);
+        const formattedText = await generateTextAsync(answer, apiKey);
         const { ok, audioUrl } = await textToAudio(formattedText);
 
         if (ok && audioUrl) {
@@ -86,27 +85,20 @@ const Chat: React.FC = () => {
 
         setIsTyping(false);
       } catch (error) {
-        console.error('Error creating thread:', error);
         setIsTyping(false);
+        if (error instanceof Error) {
+          console.error('Error creating thread:', error.message);
+        } else {
+          console.error('Error creating thread:', error);
+        }
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { text: 'Hubo un error procesando tu petición. Por favor, intenta más tarde.', type: 'received' }
+        ]);
       }
     }
   };
 
-  // const handleSend = async () => {
-  //   if (inputValue.trim() !== '') {
-  //     setMessages([...messages, { text: inputValue, type: 'sent' }]);
-  //     setInputValue('');
-  //     setIsTyping(true);
-
-  //     setTimeout(() => {
-  //       setMessages(prevMessages => [
-  //         ...prevMessages,
-  //         { type: 'audio', url: sampleAudio }
-  //       ]);
-  //       setIsTyping(false);
-  //     }, 1000);
-  //   }
-  // };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

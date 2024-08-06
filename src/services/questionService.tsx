@@ -1,15 +1,15 @@
 // Función para enviar la pregunta del usuario
-export const userQuestion = async (threadId: string, question: string): Promise<string> => {
+export const userQuestion = async (threadId: string, question: string, apiKey: string): Promise<string> => {
     try {
         const apiBase = process.env.REACT_APP_ENV_BASE;
+        console.log(apiKey, "apiKey: ")
         const response = await fetch(`${apiBase}/sam-assistant/user-question`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ threadId, question })
+            body: JSON.stringify({ threadId, question, apiKey })
         });
-
         if (!response.ok) {
             throw new Error(`Error sending question: ${response.statusText}`);
         }
